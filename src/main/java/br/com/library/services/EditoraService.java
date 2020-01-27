@@ -8,27 +8,30 @@ import org.springframework.stereotype.Service;
 
 import br.com.library.domain.Editora;
 import br.com.library.repositories.EditoraRepository;
+import br.com.library.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class EditoraService {
 	
 	@Autowired
-	private EditoraRepository editoraRepository;
+	private EditoraRepository repo;
 	
 	public void saveAll(List<Editora> editoras) {
-		editoraRepository.saveAll(editoras);
+		repo.saveAll(editoras);
 	}
 	
-	public Optional<Editora> find(Long id) {
-		return editoraRepository.findById(id);
+	public Editora find(Long id) {
+		Optional<Editora> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Editora.class.getName()));
 	}
 	
 	public List<Editora> findAll() {
-		return editoraRepository.findAll();
+		return repo.findAll();
 	}
 	
 	public void delete(Long id) {
-		editoraRepository.deleteById(id);
+		repo.deleteById(id);
 	}
 	
 }
