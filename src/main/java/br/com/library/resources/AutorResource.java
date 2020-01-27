@@ -16,7 +16,7 @@ import br.com.library.domain.Autor;
 import br.com.library.services.AutorService;
 
 @RestController
-@RequestMapping(path = "/")
+@RequestMapping(path = "/autor")
 public class AutorResource {
 	
 	@Autowired

@@ -16,7 +16,7 @@ import br.com.library.domain.Livro;
 import br.com.library.services.LivroService;
 
 @RestController
-@RequestMapping(path = "/")
+@RequestMapping(path = "/livro")
 public class LivroResource {
 	
 	@Autowired

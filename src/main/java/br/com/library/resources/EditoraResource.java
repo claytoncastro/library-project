@@ -16,7 +16,7 @@ import br.com.library.domain.Editora;
 import br.com.library.services.EditoraService;
 
 @RestController
-@RequestMapping(path = "/")
+@RequestMapping(path = "/editora")
 public class EditoraResource {
 	
 	@Autowired
