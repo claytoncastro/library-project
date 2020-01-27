@@ -23,8 +23,8 @@ public class EditoraResource {
 	private EditoraService editoraService;
 	
 	@PostMapping
-	public void save(@RequestBody Editora livro) {
-		editoraService.save(livro);
+	public void saveAll(@RequestBody List<Editora> editoras) {
+		editoraService.saveAll(editoras);
 	}
 	
 	@GetMapping(value = "/{id}")

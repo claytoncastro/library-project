@@ -15,8 +15,8 @@ public class EditoraService {
 	@Autowired
 	private EditoraRepository editoraRepository;
 	
-	public void save(Editora editora) {
-		editoraRepository.save(editora);
+	public void saveAll(List<Editora> editoras) {
+		editoraRepository.saveAll(editoras);
 	}
 	
 	public Optional<Editora> find(Long id) {

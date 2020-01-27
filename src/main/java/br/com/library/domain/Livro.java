@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,8 +20,8 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Livro implements Serializable{
-	
+@EqualsAndHashCode(of = "id")
+public class Livro implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -32,7 +33,7 @@ public class Livro implements Serializable{
 	@Getter @Setter
 	private Date ano;
 	@Getter @Setter
-	@ManyToMany
+	@ManyToMany(mappedBy = "livros")
 	private List<Autor> autores;
 	@Getter @Setter
 	@ManyToOne
