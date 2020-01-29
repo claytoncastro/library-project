@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +30,8 @@ public class EditoraResource {
 	private EditoraService editoraService;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Editora editora) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody EditoraDTO editoraDto) {
+		Editora editora = editoraService.fromDTO(editoraDto);
 		editora = editoraService.insert(editora);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(editora.getId()).toUri();
@@ -36,7 +39,8 @@ public class EditoraResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody Editora editora, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody EditoraDTO editoraDto, @PathVariable Long id) {
+		Editora editora = editoraService.fromDTO(editoraDto);
 		editora.setId(id);
 		editora = editoraService.update(editora);
 		return ResponseEntity.noContent().build();

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.library.domain.Editora;
+import br.com.library.dto.EditoraDTO;
 import br.com.library.repositories.EditoraRepository;
 import br.com.library.services.exceptions.ObjectNotFoundException;
 
@@ -38,6 +39,10 @@ public class EditoraService {
 	public void delete(Long id) {
 		find(id);
 		repo.deleteById(id);
+	}
+	
+	public Editora fromDTO(EditoraDTO editoraDto) {
+		return new Editora(editoraDto.getId(), editoraDto.getNome());
 	}
 	
 }
