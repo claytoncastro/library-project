@@ -2,6 +2,7 @@ package br.com.library.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.library.domain.Editora;
+import br.com.library.dto.EditoraDTO;
 import br.com.library.services.EditoraService;
 
 @RestController
@@ -47,9 +49,11 @@ public class EditoraResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Editora>> findAll() {
-		List<Editora> editora = editoraService.findAll();
-		return ResponseEntity.ok().body(editora);
+	public ResponseEntity<List<EditoraDTO>> findAll() {
+		List<Editora> editoraList = editoraService.findAll();
+		List<EditoraDTO> editoraDto = editoraList.stream()
+				.map(editora -> new EditoraDTO(editora)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(editoraDto);
 	}
 
 	@DeleteMapping(value = "/{id}")
