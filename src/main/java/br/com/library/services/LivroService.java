@@ -7,27 +7,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.library.domain.Livro;
+import br.com.library.dto.LivroDTO;
 import br.com.library.repositories.LivroRepository;
+import br.com.library.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class LivroService {
 	
 	@Autowired
-	private LivroRepository livroRepository;
+	private LivroRepository repo;
 	
-	public void save(Livro livro) {
-		livroRepository.save(livro);
+	public Livro insert(Livro livro) {
+		return repo.save(livro);
 	}
 	
-	public Optional<Livro> find(Long id) {
-		return livroRepository.findById(id);
+	public Livro update(Livro livro) {
+		find(livro.getId());
+		return repo.save(livro);
+	}
+	
+	public Livro find(Long id) {
+		Optional<Livro> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Livro.class.getName()));
 	}
 	
 	public List<Livro> findAll() {
-		return livroRepository.findAll();
+		return repo.findAll();
 	}
 	
 	public void delete(Long id) {
-		livroRepository.deleteById(id);
+		find(id);
+		repo.deleteById(id);
+	}
+	
+	public Livro fromDTO(LivroDTO livroDto) {
+		return new Livro(livroDto.getId(), livroDto.getTitulo(), livroDto.getAno(), livroDto.getAutores(), livroDto.getEditora());
 	}
 }

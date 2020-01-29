@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,21 +23,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Getter @Setter
 public class Livro implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Getter @Setter
 	private String titulo;
-	@Getter @Setter
 	private Date ano;
-	@Getter @Setter
+	@JsonIgnore
 	@ManyToMany(mappedBy = "livros")
 	private List<Autor> autores;
-	@Getter @Setter
 	@ManyToOne
 	private Editora editora;
 }

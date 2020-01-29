@@ -21,16 +21,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Getter @Setter
 public class Autor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Getter @Setter
 	private String nome;
-	@Getter @Setter
 	@ManyToMany
 	@JoinTable(name = "AUTOR_LIVRO", 
 		joinColumns = @JoinColumn(name = "autor_id"), 
