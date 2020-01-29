@@ -17,14 +17,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Getter @Setter
 public class Editora implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Getter @Setter
 	private String nome;
 
 }

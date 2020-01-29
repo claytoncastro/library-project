@@ -16,8 +16,13 @@ public class EditoraService {
 	@Autowired
 	private EditoraRepository repo;
 	
-	public void saveAll(List<Editora> editoras) {
-		repo.saveAll(editoras);
+	public Editora insert(Editora editora) {
+		return repo.save(editora);
+	}
+	
+	public Editora update(Editora editora) {
+		find(editora.getId());
+		return repo.save(editora);
 	}
 	
 	public Editora find(Long id) {
@@ -31,6 +36,7 @@ public class EditoraService {
 	}
 	
 	public void delete(Long id) {
+		find(id);
 		repo.deleteById(id);
 	}
 	
