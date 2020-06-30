@@ -15,30 +15,30 @@ import br.com.library.services.exceptions.ObjectNotFoundException;
 public class EditoraService {
 	
 	@Autowired
-	private EditoraRepository repo;
+	private EditoraRepository repository;
 	
 	public Editora insert(Editora editora) {
-		return repo.save(editora);
+		return repository.save(editora);
 	}
 	
 	public Editora update(Editora editora) {
 		find(editora.getId());
-		return repo.save(editora);
+		return repository.save(editora);
 	}
 	
 	public Editora find(Long id) {
-		Optional<Editora> obj = repo.findById(id);
+		Optional<Editora> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Editora.class.getName()));
 	}
 	
 	public List<Editora> findAll() {
-		return repo.findAll();
+		return repository.findAll();
 	}
 	
 	public void delete(Long id) {
 		find(id);
-		repo.deleteById(id);
+		repository.deleteById(id);
 	}
 	
 	public Editora fromDTO(EditoraDTO editoraDto) {

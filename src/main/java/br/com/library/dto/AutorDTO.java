@@ -1,17 +1,15 @@
 package br.com.library.dto;
 
+import br.com.library.domain.Autor;
+import br.com.library.domain.Livro;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-
-import br.com.library.domain.Autor;
-import br.com.library.domain.Livro;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter @Setter
+@Data
 @NoArgsConstructor
 public class AutorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

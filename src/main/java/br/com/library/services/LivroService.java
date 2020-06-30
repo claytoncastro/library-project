@@ -15,30 +15,30 @@ import br.com.library.services.exceptions.ObjectNotFoundException;
 public class LivroService {
 	
 	@Autowired
-	private LivroRepository repo;
+	private LivroRepository repository;
 	
 	public Livro insert(Livro livro) {
-		return repo.save(livro);
+		return repository.save(livro);
 	}
 	
 	public Livro update(Livro livro) {
 		find(livro.getId());
-		return repo.save(livro);
+		return repository.save(livro);
 	}
 	
 	public Livro find(Long id) {
-		Optional<Livro> obj = repo.findById(id);
+		Optional<Livro> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Livro.class.getName()));
 	}
 	
 	public List<Livro> findAll() {
-		return repo.findAll();
+		return repository.findAll();
 	}
 	
 	public void delete(Long id) {
 		find(id);
-		repo.deleteById(id);
+		repository.deleteById(id);
 	}
 	
 	public Livro fromDTO(LivroDTO livroDto) {

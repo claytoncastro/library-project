@@ -27,12 +27,12 @@ import br.com.library.services.EditoraService;
 public class EditoraResource {
 	
 	@Autowired
-	private EditoraService editoraService;
+	private EditoraService service;
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody EditoraDTO editoraDto) {
-		Editora editora = editoraService.fromDTO(editoraDto);
-		editora = editoraService.insert(editora);
+		Editora editora = service.fromDTO(editoraDto);
+		editora = service.insert(editora);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(editora.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -40,21 +40,21 @@ public class EditoraResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody EditoraDTO editoraDto, @PathVariable Long id) {
-		Editora editora = editoraService.fromDTO(editoraDto);
+		Editora editora = service.fromDTO(editoraDto);
 		editora.setId(id);
-		editora = editoraService.update(editora);
+		service.update(editora);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Editora> find(@PathVariable(value = "id") Long id) {
-		Editora editora = editoraService.find(id);
+		Editora editora = service.find(id);
 		return ResponseEntity.ok().body(editora);
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<EditoraDTO>> findAll() {
-		List<Editora> editoraList = editoraService.findAll();
+		List<Editora> editoraList = service.findAll();
 		List<EditoraDTO> editoraDto = editoraList.stream()
 				.map(editora -> new EditoraDTO(editora)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(editoraDto);
@@ -62,7 +62,7 @@ public class EditoraResource {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
-		editoraService.delete(id);
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

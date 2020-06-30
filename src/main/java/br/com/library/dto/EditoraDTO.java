@@ -1,15 +1,13 @@
 package br.com.library.dto;
 
-import java.io.Serializable;
+import br.com.library.domain.Editora;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
-import br.com.library.domain.Editora;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter @Setter
+@Data
 @NoArgsConstructor
 public class EditoraDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -1,20 +1,16 @@
 package br.com.library.dto;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
-
 import br.com.library.domain.Autor;
 import br.com.library.domain.Editora;
 import br.com.library.domain.Livro;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.List;
+
+@Data
 @NoArgsConstructor
 public class LivroDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

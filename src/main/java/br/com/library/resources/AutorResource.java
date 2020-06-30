@@ -27,12 +27,12 @@ import br.com.library.services.AutorService;
 public class AutorResource {
 	
 	@Autowired
-	private AutorService autorService;
+	private AutorService service;
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody AutorDTO autorDto) {
-		Autor autor = autorService.fromDTO(autorDto);
-		autor = autorService.insert(autor);
+		Autor autor = service.fromDTO(autorDto);
+		autor = service.insert(autor);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(autor.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -40,21 +40,21 @@ public class AutorResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody AutorDTO autorDto, @PathVariable Long id) {
-		Autor autor = autorService.fromDTO(autorDto);
+		Autor autor = service.fromDTO(autorDto);
 		autor.setId(id);
-		autor = autorService.update(autor);
+		service.update(autor);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Autor> find(@PathVariable(value = "id") Long id) {
-		Autor autor = autorService.find(id);
+		Autor autor = service.find(id);
 		return ResponseEntity.ok().body(autor);
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<AutorDTO>> findAll() {
-		List<Autor> autorList = autorService.findAll();
+		List<Autor> autorList = service.findAll();
 		List<AutorDTO> autorDto = autorList.stream()
 				.map(autor -> new AutorDTO(autor)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(autorDto);
@@ -62,7 +62,7 @@ public class AutorResource {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
-		autorService.delete(id);
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

@@ -27,12 +27,12 @@ import br.com.library.services.LivroService;
 public class LivroResource {
 	
 	@Autowired
-	private LivroService livroService;
+	private LivroService service;
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody LivroDTO livroDto) {
-		Livro livro = livroService.fromDTO(livroDto);
-		livro = livroService.insert(livro);
+		Livro livro = service.fromDTO(livroDto);
+		livro = service.insert(livro);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(livro.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -40,21 +40,21 @@ public class LivroResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody LivroDTO livroDto, @PathVariable Long id) {
-		Livro livro = livroService.fromDTO(livroDto);
+		Livro livro = service.fromDTO(livroDto);
 		livro.setId(id);
-		livro = livroService.update(livro);
+		service.update(livro);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Livro> find(@PathVariable(value = "id") Long id) {
-		Livro livro = livroService.find(id);
+		Livro livro = service.find(id);
 		return ResponseEntity.ok().body(livro);
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<LivroDTO>> findAll() {
-		List<Livro> livroList = livroService.findAll();
+		List<Livro> livroList = service.findAll();
 		List<LivroDTO> livroDto = livroList.stream()
 				.map(livro -> new LivroDTO(livro)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(livroDto);
@@ -62,7 +62,7 @@ public class LivroResource {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
-		livroService.delete(id);
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }
