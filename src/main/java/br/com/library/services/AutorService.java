@@ -15,30 +15,30 @@ import br.com.library.services.exceptions.ObjectNotFoundException;
 public class AutorService {
 	
 	@Autowired
-	private AutorRepository repo;
+	private AutorRepository repository;
 	
 	public Autor insert(Autor autor) {
-		return repo.save(autor);
+		return repository.save(autor);
 	}
 	
 	public Autor update(Autor autor) {
 		find(autor.getId());
-		return repo.save(autor);
+		return repository.save(autor);
 	}
 	
 	public Autor find(Long id) {
-		Optional<Autor> obj = repo.findById(id);
+		Optional<Autor> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Autor.class.getName()));
 	}
 	
 	public List<Autor> findAll() {
-		return repo.findAll();
+		return repository.findAll();
 	}
 	
 	public void delete(Long id) {
 		find(id);
-		repo.deleteById(id);
+		repository.deleteById(id);
 	}
 	
 	public Autor fromDTO(AutorDTO autorDto) {

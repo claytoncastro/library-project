@@ -1,8 +1,10 @@
 package br.com.library.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,28 +12,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Getter @Setter
-public class Livro implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
+public class Livro implements AbstractEntity {
+
 	@Id
+	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titulo;
-	private Date ano;
+	private Integer ano;
 	@JsonIgnore
 	@ManyToMany(mappedBy = "livros")
 	private List<Autor> autores;

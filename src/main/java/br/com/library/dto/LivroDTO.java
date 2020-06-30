@@ -1,6 +1,7 @@
 package br.com.library.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class LivroDTO implements Serializable {
 	private Long id;
 	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String titulo;
-	private Date ano;
+	private Integer ano;
 	private List<Autor> autores;
 	private Editora editora;
 	
